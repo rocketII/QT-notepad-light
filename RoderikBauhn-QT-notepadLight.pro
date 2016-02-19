@@ -14,8 +14,7 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    settingsform.cpp \
-    qtföreläsning.cpp
+    settingsform.cpp
 
 HEADERS  += mainwindow.h \
     settingsform.h
@@ -25,4 +24,5 @@ FORMS    += mainwindow.ui \
     settingsform.ui
 
 DISTFILES += \
-    notesReadMe.txt
+    notesReadMe.txt \
+    qtföreläsning.txt
