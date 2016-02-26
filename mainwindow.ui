@@ -33,7 +33,7 @@
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="documentMode">
      <bool>false</bool>
@@ -126,71 +126,6 @@
      </attribute>
     </widget>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>708</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
-    </property>
-    <widget class="QMenu" name="menuRecent_files">
-     <property name="title">
-      <string>recent files</string>
-     </property>
-     <addaction name="actionClear_list"/>
-     <addaction name="separator"/>
-     <addaction name="actionPlace_holder_1"/>
-     <addaction name="actionPlace_holder_2"/>
-     <addaction name="actionPlace_holder_3"/>
-     <addaction name="actionPlace_holder_4"/>
-    </widget>
-    <addaction name="actionOpen_file"/>
-    <addaction name="actionClose_file"/>
-    <addaction name="menuRecent_files"/>
-    <addaction name="separator"/>
-    <addaction name="actionQuit"/>
-   </widget>
-   <widget class="QMenu" name="menuEdit">
-    <property name="title">
-     <string>Edit</string>
-    </property>
-    <addaction name="actionBold"/>
-    <addaction name="actionItalic"/>
-    <addaction name="separator"/>
-    <addaction name="actionSettings"/>
-   </widget>
-   <widget class="QMenu" name="menuMagic">
-    <property name="title">
-     <string>Magic</string>
-    </property>
-    <addaction name="actionTo_Capital"/>
-    <addaction name="actionTo_LowerCase"/>
-    <addaction name="separator"/>
-    <addaction name="actionEncrypt_with_Caesar_bad_idea"/>
-    <addaction name="actionRainbow_colors_also_bad_idea"/>
-    <addaction name="actionEdit_file_in_hex"/>
-   </widget>
-   <widget class="QMenu" name="menuAbout">
-    <property name="title">
-     <string>About</string>
-    </property>
-    <addaction name="actionAbout"/>
-    <addaction name="actionHelp"/>
-    <addaction name="actionLegal"/>
-    <addaction name="actionHome_page"/>
-    <addaction name="actionContact_Developer"/>
-   </widget>
-   <addaction name="menuFile"/>
-   <addaction name="menuEdit"/>
-   <addaction name="menuMagic"/>
-   <addaction name="menuAbout"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">

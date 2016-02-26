@@ -14,10 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    settingsform.cpp
+    settingsform.cpp \
+    engine.cpp
 
 HEADERS  += mainwindow.h \
-    settingsform.h
+    settingsform.h \
+    engine.h
 
 FORMS    += mainwindow.ui \
     dialogsavebeforeclosing.ui \
