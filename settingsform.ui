@@ -13,7 +13,10 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <widget class="QPushButton" name="saveSettingsButtom">
    <property name="geometry">
     <rect>
      <x>260</x>
@@ -21,6 +24,18 @@
      <width>151</width>
      <height>26</height>
     </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="toolTip">
+    <string comment="save what you have done." extracomment="save what you have done."/>
+   </property>
+   <property name="toolTipDuration">
+    <number>50</number>
+   </property>
+   <property name="statusTip">
+    <string comment="save your settings">save your settings</string>
    </property>
    <property name="text">
     <string>OK! save &amp; close</string>
@@ -42,9 +57,9 @@
   <widget class="Line" name="line">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>0</x>
      <y>389</y>
-     <width>591</width>
+     <width>611</width>
      <height>21</height>
     </rect>
    </property>
@@ -52,7 +67,7 @@
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="lineEditPath2Font">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -60,45 +75,6 @@
      <width>481</width>
      <height>25</height>
     </rect>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBox">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>130</y>
-     <width>92</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>White</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBox_2">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>90</y>
-     <width>92</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Black</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBox_3">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>90</y>
-     <width>92</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Navy blue</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">
@@ -118,7 +94,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>70</y>
+     <y>60</y>
      <width>111</width>
      <height>16</height>
     </rect>
@@ -140,26 +116,13 @@
     <string>Text color</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="checkBox_4">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>130</y>
-     <width>92</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Green</string>
-   </property>
-  </widget>
   <widget class="Line" name="line_2">
    <property name="geometry">
     <rect>
-     <x>250</x>
+     <x>260</x>
      <y>50</y>
      <width>20</width>
-     <height>101</height>
+     <height>111</height>
     </rect>
    </property>
    <property name="orientation">
@@ -169,9 +132,9 @@
   <widget class="Line" name="line_3">
    <property name="geometry">
     <rect>
-     <x>27</x>
+     <x>-3</x>
      <y>40</y>
-     <width>581</width>
+     <width>611</width>
      <height>20</height>
     </rect>
    </property>
@@ -182,9 +145,9 @@
   <widget class="Line" name="line_4">
    <property name="geometry">
     <rect>
-     <x>27</x>
+     <x>10</x>
      <y>150</y>
-     <width>581</width>
+     <width>601</width>
      <height>20</height>
     </rect>
    </property>
@@ -205,58 +168,6 @@
     <string>path to font:        ($HOMEfont.tff | /home/font.tff | F:\dirAfont.tff)</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="checkBox_5">
-   <property name="geometry">
-    <rect>
-     <x>290</x>
-     <y>90</y>
-     <width>92</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Black</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBox_6">
-   <property name="geometry">
-    <rect>
-     <x>290</x>
-     <y>130</y>
-     <width>92</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Green</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBox_7">
-   <property name="geometry">
-    <rect>
-     <x>440</x>
-     <y>130</y>
-     <width>92</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>White</string>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBox_8">
-   <property name="geometry">
-    <rect>
-     <x>440</x>
-     <y>90</y>
-     <width>92</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Navy blue</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
@@ -270,6 +181,107 @@
     <string>Change Font</string>
    </property>
   </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>90</y>
+     <width>251</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayoutBgColor">
+    <item row="0" column="0">
+     <widget class="QRadioButton" name="radioButton_2">
+      <property name="text">
+       <string>Black[2]</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QRadioButton" name="radioButton_3">
+      <property name="text">
+       <string>Navy blue[3]</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QRadioButton" name="radioButton">
+      <property name="text">
+       <string>White[1]</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QRadioButton" name="radioButton_4">
+      <property name="text">
+       <string>Green[4]</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>90</y>
+     <width>204</width>
+     <height>48</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout_TxtColor">
+    <item row="0" column="0">
+     <widget class="QRadioButton" name="radioButton_5">
+      <property name="text">
+       <string>Black[5]</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QRadioButton" name="radioButton_8">
+      <property name="text">
+       <string>Navy blue[8]</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QRadioButton" name="radioButton_6">
+      <property name="text">
+       <string>Green[6]</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QRadioButton" name="radioButton_7">
+      <property name="text">
+       <string>White[7]</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <zorder>saveSettingsButtom</zorder>
+  <zorder>pushButton_2</zorder>
+  <zorder>line</zorder>
+  <zorder>lineEditPath2Font</zorder>
+  <zorder>label</zorder>
+  <zorder>label_2</zorder>
+  <zorder>label_3</zorder>
+  <zorder>line_2</zorder>
+  <zorder>line_3</zorder>
+  <zorder>line_4</zorder>
+  <zorder>label_4</zorder>
+  <zorder>label_5</zorder>
+  <zorder>radioButton</zorder>
+  <zorder>radioButton_2</zorder>
+  <zorder>radioButton_3</zorder>
+  <zorder>radioButton_4</zorder>
+  <zorder>radioButton_5</zorder>
+  <zorder>radioButton_6</zorder>
+  <zorder>radioButton_7</zorder>
+  <zorder>radioButton_8</zorder>
+  <zorder>radioButton_8</zorder>
  </widget>
  <resources/>
  <connections/>

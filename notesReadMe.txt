@@ -6,3 +6,5 @@ QTABWidget klassen har en del coola medlemsfunktioner.
 QFileDialog är bra för att få en file path i QString.
 
 QString går att få i std string.
+
+Forms skapar alla pekare auto i en ui_<formname.ui>.h  använd alt+pekare för åtkomst.

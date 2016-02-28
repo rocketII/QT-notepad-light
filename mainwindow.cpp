@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "settingsform.h"
 #include<QDesktopServices>
 #include<QDebug>
 //for menubar and dialogs.
@@ -172,104 +173,129 @@ void MainWindow::openFileWithMagicSlot()
     QString path2YourShittyFile = QFileDialog::getOpenFileName(this);
     if(!path2YourShittyFile.isEmpty())
         qDebug() << path2YourShittyFile;
+        //Use engine class for this file path.
     else
         qDebug() << "you shitty file are totz empty";
 }
 
 void MainWindow::saveSlot()
 {
-    ;
+    qDebug() << "Save: init";
+    QString pathWhereISaveYourFile2 = QFileDialog::getSaveFileName(this);
+    if(!pathWhereISaveYourFile2.isEmpty())
+        qDebug() << pathWhereISaveYourFile2;
+        // use engine class to handle filestream.
+    else
+        qDebug() << "you shitty file path are totz empty";
 }
 
 //Edit menu slots
 
 void MainWindow::boldSlot()
 {
-
+    qDebug() << "Bold: init";
 }
 
 void MainWindow::italicSlot()
 {
-
+    qDebug() << "Italic: init";
 }
 
 void MainWindow::cutSlot()
 {
+    qDebug() << "cut: init";
 
 }
 void MainWindow::copySlot()
 {
+    qDebug() << "copy: init";
 
 }
 
 void MainWindow::pasteSlot()
 {
+    qDebug() << "paste: init";
 
 }
 
 void MainWindow::findAndReplaceSlot()
 {
+    qDebug() << "find and replace: init";
 
 }
 //connect to settingsform
 void MainWindow::settingSlot()
 {
+    qDebug() << "settings: init";
+    SettingsForm *mySettings;
+    mySettings = new SettingsForm;
+    mySettings->setWindowTitle(tr("::notepad light::shitty settings::"));
+    mySettings->show();
 
 }
 
 //magic menu slots
 void MainWindow::toCapitalSlot()
 {
+    qDebug() << "to capital: init";
 
 }
 void MainWindow::toLowerCaseSlot()
 {
+    qDebug() << "to capital: init";
 
 }
 
 void MainWindow::rainBowColorsSlot()
 {
+    qDebug() << "rainbow colors: init";
 
 }
 void MainWindow::hexEditSlot()
 {
+    qDebug() << "Hex editing: init";
 
 }
 
 void MainWindow::caesarCryptoSlot()
 {
+    qDebug() << "Caesar encryption: init";
 
 }
 //about menu slots
 
 void MainWindow::aboutSlot()
 {
-    qDebug() << "hello";
+    qDebug() << "About: init";
 }
 
 void MainWindow::helpSlot()
 {
+    qDebug() << "Heĺp: init";
 
 }
 
 void MainWindow::legalSlot()
 {
-
+    qDebug() << "legal: init";
 }
 
 void MainWindow::HomepageSlot()
 {
+    qDebug() << "www: init";
     QDesktopServices::openUrl(QUrl("http://vangandr.synology.me", QUrl::TolerantMode));
 }
 
 void MainWindow::ContactDevSlot()
 {
+    qDebug() << "Contact Dev: init";
     QDesktopServices::openUrl(QUrl("mailto:rocket@dflund.se?subject=Test&body=Just a test", QUrl::TolerantMode));
 }
 
 MainWindow::~MainWindow()
 {
-    QString infoTxt2Screen = tr("Closing your shitty app!!!");
+    qDebug() << "Destructor: init";
+    QString infoTxt2Screen = tr("Closing your shitty app!!!... and you probably can't read this...");
     statusBar()->showMessage(infoTxt2Screen);
     delete ui;
 }
