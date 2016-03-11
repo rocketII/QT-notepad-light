@@ -3,6 +3,11 @@
 #include "settingsform.h"
 #include<QDesktopServices>
 #include<QDebug>
+#include<qtabbar.h>
+#include<QPushButton>
+#include<QtWidgets>
+#include<qplaintextedit.h>
+#include<QPlainTextEdit>
 //for menubar and dialogs.
 #include<QFileDialog> //används för att öppna en fil med filbläddrare som kan ge en path.
 #include<QMenuBar>
@@ -36,12 +41,34 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    //setSelectionBehaviorOnRemove(QTabBar::SelectPreviousTab);
     setWindowTitle(tr("notePadLight :: your source of swag::"));
+    this->txtEditManagement = new QPlainTextEdit(ui->tab);
+    this->txtEditManagementII = new QPlainTextEdit(ui->tab_2);
+    setCentralWidget(ui->tabWidget);
+    ui->tabWidget->setTabText(ui->tabWidget->indexOf(ui->tab), tr("I changed txt"));
+    ui->tabWidget->setTabText(ui->tabWidget->indexOf(ui->tab_2), tr("no name"));
+    /*QWidget *tab_3;
+    tab_3 = new QWidget();
+    tab_3->setObjectName(QStringLiteral("tab_3"));
+    ui->tabWidget->addTab(tab_3, QString());
+    ui->tabWidget->setTabText(ui->tabWidget->indexOf(tab_3), tr("no name"));
+    QWidget *tab_4;
+    tab_4 = new QWidget();
+    tab_4->setObjectName(QStringLiteral("tab_4"));
+    ui->tabWidget->addTab(tab_4, QString());
+    QPushButton *button = new QPushButton(QApplication::translate("childwidget", "Press me"), tab_3);
+    button->show();
+    QPlainTextEdit *testMe= new QPlainTextEdit(tab_4);
+    testMe->setMinimumSize(ui->tabWidget->size());
+    testMe->show(); */
     actionMagic();
+    connect(this, SIGNAL(tabCloseRequested(int)),this, SIGNAL(closeTab(int)));
     menuMagic(); //menu or action first?
     //actionMagic();
     QString infoTxt2Screen = tr("Welcome to my shitty app!!!");
     statusBar()->showMessage(infoTxt2Screen);
+    //connect(this, SIGNAL(this->closeThemTabs.tabCloseRequested((int)),this, SIGNAL(this->closeThemTabs.clo(int)));
     //resize(500,500);
 }
 
@@ -86,6 +113,16 @@ void MainWindow::actionMagic()
 {
     //File menu
     //repeat for each menu item
+    newTabAct = new QAction(tr("&Open..."), this);
+    newTabAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_T));
+    newTabAct->setStatusTip(tr("Find youre file and open it here(must be .md or .txt)"));
+    connect(newTabAct, SIGNAL(triggered()), this, SLOT(newTabSlot()));
+
+    closeTabAct = new QAction(tr("&Open..."), this);
+    closeTabAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_O));
+    closeTabAct->setStatusTip(tr("Find youre file and open it here(must be .md or .txt)"));
+    connect(closeTabAct, SIGNAL(triggered()), this, SLOT(closeTabSlot()));
+
     openAct = new QAction(tr("&Open..."), this);
     openAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_O));
     openAct->setStatusTip(tr("Find youre file and open it here(must be .md or .txt)"));
@@ -168,12 +205,91 @@ void MainWindow::actionMagic()
 ///////////////////////////////////////////////////////////
 
 //file menu slots
+void MainWindow::newTabSlot()
+{
+    if(this->nrOfTabs<6)
+    {
+    //save new tab to some aray
+
+        switch (this->nrOfTabs)
+        {
+        case 3:
+            this->tab_3 = new QWidget();
+            this->tab_3->setObjectName(QStringLiteral("tab_3"));
+            ui->tabWidget->addTab(this->tab_3, QString());
+            this->txtEditManagementIII = new QPlainTextEdit(this->tab_3);
+            this->txtEditManagementIII->show();
+            break;
+        case 4:
+            this->tab_4 = new QWidget();
+            this->tab_4->setObjectName(QStringLiteral("tab_4"));
+            ui->tabWidget->addTab(this->tab_4, QString());
+            this->txtEditManagementIV = new QPlainTextEdit(this->tab_4);
+            this->txtEditManagementIV->show();
+            break;
+        case 5:
+            this->tab_5 = new QWidget();
+            this->tab_5->setObjectName(QStringLiteral("tab_5"));
+            ui->tabWidget->addTab(this->tab_5, QString());
+            this->txtEditManagementV = new QPlainTextEdit(this->tab_5);
+            this->txtEditManagementV->show();
+            break;
+        default:
+            break;
+        }
+        this->nrOfTabs++;
+    }
+    qDebug() << "newTabSlot: init";
+}
+
+void MainWindow::closeTabSlot()
+{
+    /*if (QAction *action = qobject_cast<QAction*>(sender()))
+    {
+        int index = action->data().toInt();
+        emit closeTab(index);
+    }*/
+    if(this->nrOfTabs > 0)
+    {
+
+        switch (this->nrOfTabs)
+        {
+        case 1:
+            ui->tabWidget->removeTab(0);
+        case 2:
+            ui->tabWidget->removeTab(1);
+            break;
+        case 3:
+            ui->tabWidget->removeTab(2);
+            break;
+        case 4:
+            ui->tabWidget->removeTab(3);
+            break;
+        case 5:
+            ui->tabWidget->removeTab(4);
+            break;
+        default:
+            break;
+        }
+        this->nrOfTabs--;
+    }
+    qDebug() << "closeTabSlot: init";
+}
 void MainWindow::openFileWithMagicSlot()
 {
     QString path2YourShittyFile = QFileDialog::getOpenFileName(this);
     if(!path2YourShittyFile.isEmpty())
+    {
         qDebug() << path2YourShittyFile;
-        //Use engine class for this file path.
+        //should I use current Tab?
+        //this->currentFile[this->nrOfTabs]= path2YourShittyFile;
+        //how should I handle parameter with 5 paths?
+        bool flag = this->engineRoar->fileLoad(path2YourShittyFile, this->txtEditManagement);
+        if(flag)
+            ui->statusBar->showMessage(tr("Succes!!"));
+        else
+            ui->statusBar->showMessage(tr("Fail"));
+    } //Use engine class for this file path.
     else
         qDebug() << "you shitty file are totz empty";
 }
@@ -183,8 +299,14 @@ void MainWindow::saveSlot()
     qDebug() << "Save: init";
     QString pathWhereISaveYourFile2 = QFileDialog::getSaveFileName(this);
     if(!pathWhereISaveYourFile2.isEmpty())
+    {
         qDebug() << pathWhereISaveYourFile2;
-        // use engine class to handle filestream.
+        bool flag = this->engineRoar->fileSave(pathWhereISaveYourFile2,this->txtEditManagement);
+        if(flag)
+            statusBar()->showMessage(tr("Saved File "));
+        else
+            statusBar()->showMessage(tr("Saved File = fail :( ) "));
+    }   // use engine class to handle filestream.
     else
         qDebug() << "you shitty file path are totz empty";
 }
@@ -193,29 +315,38 @@ void MainWindow::saveSlot()
 
 void MainWindow::boldSlot()
 {
+    //use  this->txtEditManagement-> try to change txt content in widget.
     qDebug() << "Bold: init";
 }
 
 void MainWindow::italicSlot()
 {
+    //ui->plainTextEdit->
+    //this->txtEditManagement->
     qDebug() << "Italic: init";
+    //ui->plainTextEdit->;
 }
 
 void MainWindow::cutSlot()
 {
     qDebug() << "cut: init";
-
+    //this->txtEditManagement->cut();
+    this->txtEditManagement->cut();
 }
 void MainWindow::copySlot()
 {
     qDebug() << "copy: init";
-
+    //this->doIt.copy();
+    //this->txtEditManagement->copy();
+    this->txtEditManagement->copy();
 }
 
 void MainWindow::pasteSlot()
 {
     qDebug() << "paste: init";
-
+    //this->doIt.paste();
+    //this->txtEditManagement->paste();
+     this->txtEditManagement->paste();
 }
 
 void MainWindow::findAndReplaceSlot()
@@ -237,6 +368,7 @@ void MainWindow::settingSlot()
 //magic menu slots
 void MainWindow::toCapitalSlot()
 {
+    //this->txtEditManagement->
     qDebug() << "to capital: init";
 
 }
@@ -299,4 +431,19 @@ MainWindow::~MainWindow()
     statusBar()->showMessage(infoTxt2Screen);
     delete ui;
 }
+/*
+void MainWindow::closeEvent(QCloseEvent *event)
+
+{
+    //*&
+    bool engine::beforeClosing(QPlainTextEdit *obj, QString CurrentFile[], const QString shittyPath2File);
+    if (this->engineRoar->beforeClosing(ui->plainTextEdit), this->currentFile, )
+    {
+        event->accept();
+    }
+    else
+    {
+        event->ignore();
+    }
+}*/
 //draw,io class diagram.

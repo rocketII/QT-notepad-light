@@ -1,9 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include"engine.h"
 #include<QMainWindow>
 #include<QMenu>
 #include<QAction>
+#include<QTabBar>
+#include<QPlainTextEdit>
 namespace Ui {
 class MainWindow;
 }
@@ -17,43 +19,69 @@ public:
     ~MainWindow();
 
 private:
-    void menuMagic();
-    void actionMagic();
 
-    Ui::MainWindow *ui;
-  //File menu
-    QMenu   *fileMenu;
-    QAction *openAct;
-    QAction *exitAct;
-    QAction *saveAct;
-  //Edit menu
+    //File menu
+      QMenu   *fileMenu;
+      QAction *openAct;
+      QAction *exitAct;
+      QAction *saveAct;
+      QAction *newTabAct;
+      QAction *closeTabAct;
+    //Edit menu
 
-    QMenu   *editMenu;
-    QAction *italicAct;
-    QAction *boldAct;
-    QAction *copyAct;
-    QAction *cutAct;
-    QAction *pasteAct;
-    QAction *findAndReplaceAct;
-    QAction *settingAct;
-  //Magic menu
+      QMenu   *editMenu;
+      QAction *italicAct;
+      QAction *boldAct;
+      QAction *copyAct;
+      QAction *cutAct;
+      QAction *pasteAct;
+      QAction *findAndReplaceAct;
+      QAction *settingAct;
+    //Magic menu
     QMenu   *magicMenu;
     QAction *toCapitalAct;
     QAction *toLowerCaseAct;
     QAction *RainBowColorsAct;
     QAction *hexEditAct;
     QAction *caesarCryptoAct;
-  //About menu
+   //About menu
     QMenu   *aboutMenu;
     QAction *aboutAct;
     QAction *helpAct;
     QAction *legalAct;
     QAction *HomepageAct;
     QAction *ContactDevAct;
+    //QPlainTextEdit doIt; used with some slots f(x)
+    QPlainTextEdit *txtEditManagement;//used for text editor. One for each tab.
+    QPlainTextEdit *txtEditManagementII;
+    QPlainTextEdit *txtEditManagementIII;
+    QPlainTextEdit *txtEditManagementIV;
+    QPlainTextEdit *txtEditManagementV;
+    //menu end
+
+    //tab_1 and tab_2 are in ui->
+    QWidget *tab_3;
+    QWidget *tab_4;
+    QWidget *tab_5;
+    engine *engineRoar;
+    QString currentFile[5]; //used with engine save. maybe QString *currentFile = new QString[5]; max 5 tabs.
+    void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
+    //QTabBar closeThemTabs;
+    void menuMagic();
+    void actionMagic();
+    //QString filesNowInUse[5]; //maximum 5 tabs then on six error.
+    int nrOfTabs=0;
+    Ui::MainWindow *ui;
+signals:
+    //void newTab();
+    //void cloneTab(int index);
+    void closeTab(int index);
 
 
 private slots:
   //file menu
+    void newTabSlot();
+    void closeTabSlot();
     void openFileWithMagicSlot();
     void saveSlot();
     //exit uses close() which I don't have to define.
@@ -77,6 +105,8 @@ private slots:
     void legalSlot();
     void HomepageSlot();
     void ContactDevSlot();
+//public slots:
+   // void closeTab(int index = -1);
 };
 
 #endif // MAINWINDOW_H
