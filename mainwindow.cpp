@@ -1,8 +1,10 @@
 #include "mainwindow.h"
+#include"engine.h"
 #include "ui_mainwindow.h"
 #include "settingsform.h"
 #include<QDesktopServices>
 #include<QDebug>
+#include<QFormLayout>
 #include<qtabbar.h>
 #include<QPushButton>
 #include<QtWidgets>
@@ -44,7 +46,14 @@ MainWindow::MainWindow(QWidget *parent) :
     //setSelectionBehaviorOnRemove(QTabBar::SelectPreviousTab);
     setWindowTitle(tr("notePadLight :: your source of swag::"));
     this->txtEditManagement = new QPlainTextEdit(ui->tab);
+    //this->txtEditManagement->setMinimumSize(ui->tab);
     this->txtEditManagementII = new QPlainTextEdit(ui->tab_2);
+    //this->txtEditManagementII->setMinimumSize(ui->tab_2);
+    //this->tabArr[0] = ui->tab;
+    //this->nrOfTabs++;
+    //this->tabArr[1] = ui->tab_2;
+    this->nrOfTabs++;
+    //*layout1= new QForm;
     setCentralWidget(ui->tabWidget);
     ui->tabWidget->setTabText(ui->tabWidget->indexOf(ui->tab), tr("I changed txt"));
     ui->tabWidget->setTabText(ui->tabWidget->indexOf(ui->tab_2), tr("no name"));
@@ -68,14 +77,21 @@ MainWindow::MainWindow(QWidget *parent) :
     //actionMagic();
     QString infoTxt2Screen = tr("Welcome to my shitty app!!!");
     statusBar()->showMessage(infoTxt2Screen);
+    newTabSlot();
+    newTabSlot();
+    newTabSlot();
+    //this->
     //connect(this, SIGNAL(this->closeThemTabs.tabCloseRequested((int)),this, SIGNAL(this->closeThemTabs.clo(int)));
     //resize(500,500);
+    //lägg tabs i en dynamisk array.
 }
 
 void MainWindow::menuMagic()
 {
     //file
     fileMenu = menuBar()->addMenu(tr("&File"));
+    fileMenu->addAction(newTabAct);
+    fileMenu->addAction(closeTabAct);
     fileMenu->addAction(openAct);
     fileMenu->addAction(saveAct);
     fileMenu->addSeparator();
@@ -113,14 +129,14 @@ void MainWindow::actionMagic()
 {
     //File menu
     //repeat for each menu item
-    newTabAct = new QAction(tr("&Open..."), this);
+    newTabAct = new QAction(tr("&NewTab..."), this);
     newTabAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_T));
     newTabAct->setStatusTip(tr("Find youre file and open it here(must be .md or .txt)"));
     connect(newTabAct, SIGNAL(triggered()), this, SLOT(newTabSlot()));
 
-    closeTabAct = new QAction(tr("&Open..."), this);
-    closeTabAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_O));
-    closeTabAct->setStatusTip(tr("Find youre file and open it here(must be .md or .txt)"));
+    closeTabAct = new QAction(tr("&closeTab..."), this);
+    closeTabAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_W));
+    closeTabAct->setStatusTip(tr("less tabs"));
     connect(closeTabAct, SIGNAL(triggered()), this, SLOT(closeTabSlot()));
 
     openAct = new QAction(tr("&Open..."), this);
@@ -239,7 +255,7 @@ void MainWindow::newTabSlot()
         }
         this->nrOfTabs++;
     }
-    qDebug() << "newTabSlot: init";
+    qDebug() << "newTabSlot: init" << nrOfTabs;
 }
 
 void MainWindow::closeTabSlot()
@@ -256,6 +272,7 @@ void MainWindow::closeTabSlot()
         {
         case 1:
             ui->tabWidget->removeTab(0);
+            break;
         case 2:
             ui->tabWidget->removeTab(1);
             break;
@@ -286,7 +303,10 @@ void MainWindow::openFileWithMagicSlot()
         //how should I handle parameter with 5 paths?
         bool flag = this->engineRoar->fileLoad(path2YourShittyFile, this->txtEditManagement);
         if(flag)
+        {
             ui->statusBar->showMessage(tr("Succes!!"));
+            setWindowTitle(path2YourShittyFile);
+        }
         else
             ui->statusBar->showMessage(tr("Fail"));
     } //Use engine class for this file path.
@@ -435,7 +455,7 @@ MainWindow::~MainWindow()
 void MainWindow::closeEvent(QCloseEvent *event)
 
 {
-    //*&
+    **&
     bool engine::beforeClosing(QPlainTextEdit *obj, QString CurrentFile[], const QString shittyPath2File);
     if (this->engineRoar->beforeClosing(ui->plainTextEdit), this->currentFile, )
     {

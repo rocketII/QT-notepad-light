@@ -14,11 +14,13 @@
 class engine
 {
 private:
-    int nrOfFilesInUse=0;
-    int nrOfTabsInUse=0;
+    //int nrOfFilesInUse=0;
+    //int nrOfTabsInUse=0;
 
 public:
-    engine(int nrOfFilesInUse, int nrOfTabsInUse){this->nrOfFilesInUse=nrOfFilesInUse; this->nrOfTabsInUse=nrOfTabsInUse;}
+    engine();
+    virtual ~engine();
+    //engine(int nrOfFilesInUse, int nrOfTabsInUse){this->nrOfFilesInUse=nrOfFilesInUse; this->nrOfTabsInUse=nrOfTabsInUse;}
     //before closing make sure to ask about save.
     //bool save(QString CurrentFile[], QPlainTextEdit &obj, const QString shittyPath2File);
     //bool beforeClosing(QPlainTextEdit *obj, QString CurrentFile[], const QString shittyPath2File);

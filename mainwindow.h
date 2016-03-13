@@ -3,6 +3,7 @@
 #include"engine.h"
 #include<QMainWindow>
 #include<QMenu>
+#include<QFormLayout>
 #include<QAction>
 #include<QTabBar>
 #include<QPlainTextEdit>
@@ -60,12 +61,16 @@ private:
     //menu end
 
     //tab_1 and tab_2 are in ui->
+    QWidget *tabArr= new QWidget[5];
     QWidget *tab_3;
     QWidget *tab_4;
     QWidget *tab_5;
+    //error: 'engine' does not name a type engine *engineRoar;
     engine *engineRoar;
-    QString currentFile[5]; //used with engine save. maybe QString *currentFile = new QString[5]; max 5 tabs.
-    void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
+
+    //QString currentFile[5]; used with engine save. maybe QString *currentFile = new QString[5]; max 5 tabs.
+    QFormLayout *layout1;
+    //void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
     //QTabBar closeThemTabs;
     void menuMagic();
     void actionMagic();

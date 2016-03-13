@@ -1,4 +1,4 @@
-
+#include"mainwindow.h"
 #include"engine.h"
 #include<qmainwindow.h>
 #include<QObject>
@@ -53,12 +53,12 @@ bool engine::fileSaveAs(QPlainTextEdit &obj, QString CurrentFile[])
 }
 */
 
-void engine::fileLoad(const QString &shittyPath2File, QPlainTextEdit *obj)
+bool engine::fileLoad(const QString &shittyPath2File, QPlainTextEdit *obj)
 {
     QFile fileLoad(shittyPath2File);
     if (!fileLoad.open(QFile::ReadOnly | QFile::Text)) {
         //QMessageBox::warning(this, QObject::tr("Application"),QObject::tr("Cannot read file %1:\n%2.").arg(QFileInfo(shittyPath2File).fileName()).arg(file.errorString()));
-        return;
+        return false;
     }
     QApplication::setOverrideCursor(Qt::WaitCursor);
     QTextStream inStream(&fileLoad);
@@ -68,8 +68,9 @@ void engine::fileLoad(const QString &shittyPath2File, QPlainTextEdit *obj)
 
     QApplication::restoreOverrideCursor();
 
-    CurrentFile(QFileInfo(shittyPath2File).fileName(), shittyPath2File);
-    statusBar()->showMessage(QObject::tr("File loaded: %1").arg(shittyPath2File), -1);
+    //CurrentFile(QFileInfo(shittyPath2File).fileName(), shittyPath2File);
+    //statusBar()->showMessage(QObject::tr("File loaded: %1").arg(shittyPath2File), -1);
+    return true;
 }
 
 
