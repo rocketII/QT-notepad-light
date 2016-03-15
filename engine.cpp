@@ -73,7 +73,47 @@ bool engine::fileLoad(const QString &shittyPath2File, QPlainTextEdit *obj)
     return true;
 }
 
+QString engine::toTxT(QString caesar, int key)
+{
+    const char *cool;
+    if(!caesar.isEmpty())
+    {
+       QString returnValue = caesar;
 
+       std::string tmp= returnValue.toStdString();
+       tmp = returnValue.toStdString();
+       for (int i = 0; i < (int)tmp.length() ; ++i)
+       {
+          tmp[i]= static_cast<char>((static_cast<int>(tmp[i])-key));
+
+       }
+
+       cool = tmp.c_str();
+       returnValue = QString::fromUtf8(cool);
+
+       return returnValue;
+   }
+}
+QString engine::toCaesar(QString txt, int key)
+{
+    const char *cool;
+    if(!txt.isEmpty())
+    {
+
+       std::string tmp= txt.toStdString();
+       tmp = txt.toStdString();
+       for (int i = 0; i < (int)tmp.length() ; ++i)
+       {
+          tmp[i]= static_cast<char>((static_cast<int>(tmp[i])+key));
+
+       }
+
+       cool = tmp.c_str();
+       txt = QString::fromUtf8(cool);
+
+       return txt;
+   }
+}
 
 
 //remember tab with file should should recive new name

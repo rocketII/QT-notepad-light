@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include"engine.h"
+#include"legal.h"
 #include "ui_mainwindow.h"
 #include "settingsform.h"
 #include<QDesktopServices>
@@ -10,6 +11,8 @@
 #include<QtWidgets>
 #include<qplaintextedit.h>
 #include<QPlainTextEdit>
+#include<QTextDocument>
+#include<QFont>
 //for menubar and dialogs.
 #include<QFileDialog> //används för att öppna en fil med filbläddrare som kan ge en path.
 #include<QMenuBar>
@@ -44,8 +47,27 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     //setSelectionBehaviorOnRemove(QTabBar::SelectPreviousTab);
+    /*
+     * QPlainTextEdit monoEdit;
+        QTextDocument *doc = monoEdit.document();
+        QFont font = doc->defaultFont();
+        font.setFamily("Courier New");
+        doc->setDefaultFont(font);
+        monoEdit.setPlainText
+     */
     setWindowTitle(tr("notePadLight :: your source of swag::"));
     this->txtEditManagement = new QPlainTextEdit(ui->tab);
+    //QTextDocument *doc = this->txtEditManagement->document();
+    QFont font;
+    /*
+     *  Lucida Console
+        webdings
+        Times New Roman
+        Courier New
+     */
+    font.setFamily("Times New Roman");
+    this->txtEditManagement->setFont(font);
+
     //this->txtEditManagement->setMinimumSize(ui->tab);
     this->txtEditManagementII = new QPlainTextEdit(ui->tab_2);
     //this->txtEditManagementII->setMinimumSize(ui->tab_2);
@@ -108,11 +130,12 @@ void MainWindow::menuMagic()
     editMenu->addAction(settingAct);
     //magic
     magicMenu = menuBar()->addMenu(tr("&magic"));
-    /*magicMenu->addAction(toCapitalAct);
+    magicMenu->addAction(toCapitalAct);
     magicMenu->addAction(toLowerCaseAct);
     magicMenu->addAction(RainBowColorsAct);
     magicMenu->addAction(caesarCryptoAct);
-    magicMenu->addAction(hexEditAct);*/
+    magicMenu->addAction(caesarDeCryptoAct);
+    //magicMenu->addAction(hexEditAct);
 
     //about
     aboutMenu = menuBar()->addMenu(tr("&about"));
@@ -124,7 +147,7 @@ void MainWindow::menuMagic()
 
                  //actionQuit
 }
-
+//menu items
 void MainWindow::actionMagic()
 {
     //File menu
@@ -196,6 +219,9 @@ void MainWindow::actionMagic()
     caesarCryptoAct= new QAction(tr("&EncryptWithCaesar"), this);
     caesarCryptoAct->setStatusTip(tr("It's old it's shitty and I won't be safe even if you can't read it. :("));
     connect(caesarCryptoAct, SIGNAL(triggered()), this, SLOT(caesarCryptoSlot()));
+    caesarDeCryptoAct= new QAction(tr("&DecryptWithCaesar"), this);
+    caesarDeCryptoAct->setStatusTip(tr("It's old it's shitty and I won't be safe even if you can't read it. :("));
+    connect(caesarDeCryptoAct, SIGNAL(triggered()), this, SLOT(caesarDeCryptoSlot()));
   //About menu
     aboutAct= new QAction(tr("&about"), this);
     aboutAct->setStatusTip(tr("what you need to know about the app and versions"));
@@ -337,6 +363,7 @@ void MainWindow::boldSlot()
 {
     //use  this->txtEditManagement-> try to change txt content in widget.
     qDebug() << "Bold: init";
+    //QString format =this->txtEditManagement->toPlainText();
 }
 
 void MainWindow::italicSlot()
@@ -388,14 +415,19 @@ void MainWindow::settingSlot()
 //magic menu slots
 void MainWindow::toCapitalSlot()
 {
+    QString tmp;
     //this->txtEditManagement->
     qDebug() << "to capital: init";
+    tmp = this->txtEditManagement->toPlainText();
+    this->txtEditManagement->setPlainText(tmp.toUpper());
 
 }
 void MainWindow::toLowerCaseSlot()
 {
+    QString tmp;
     qDebug() << "to capital: init";
-
+    tmp = this->txtEditManagement->toPlainText();
+    this->txtEditManagement->setPlainText(tmp.toLower());
 }
 
 void MainWindow::rainBowColorsSlot()
@@ -412,13 +444,22 @@ void MainWindow::hexEditSlot()
 void MainWindow::caesarCryptoSlot()
 {
     qDebug() << "Caesar encryption: init";
-
+    int key = 4;
+    this->txtEditManagement->setPlainText(this->engineRoar->toCaesar(this->txtEditManagement->toPlainText(), key));
 }
+void MainWindow::caesarDeCryptoSlot()
+{
+    qDebug() << "Caesar encryption: init";
+    int key = 4;
+    this->txtEditManagement->setPlainText(this->engineRoar->toTxT(this->txtEditManagement->toPlainText(), key));
+}
+
 //about menu slots
 
 void MainWindow::aboutSlot()
 {
     qDebug() << "About: init";
+
 }
 
 void MainWindow::helpSlot()
@@ -430,6 +471,10 @@ void MainWindow::helpSlot()
 void MainWindow::legalSlot()
 {
     qDebug() << "legal: init";
+    legal *showMe;
+    showMe = new legal;
+    showMe->setWindowTitle(tr("::notepad light::shitty legal txt::"));
+    showMe->show();
 }
 
 void MainWindow::HomepageSlot()

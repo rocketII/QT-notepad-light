@@ -30,7 +30,8 @@ public:
     //void currentFileInUse(const QString fileName, QString tabArr[]);
     //void caesarCrypto(QPlainTextEdit &obj);
     bool fileSave(const QString& shittyPath2File, QPlainTextEdit *obj);
-
+    QString toTxT(QString caesar, int key);
+    QString toCaesar(QString txt, int key);
     //bool fileSaveAs(QPlainTextEdit &obj);
     bool fileLoad(const QString &shittyPath2File, QPlainTextEdit *obj);
     //bool CurrentFile(const QString &onlyFileName, QPlainTextEdit &nameOfFile, QString CurrentFile[]);

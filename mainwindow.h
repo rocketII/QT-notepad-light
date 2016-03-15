@@ -37,7 +37,7 @@ private:
       QAction *cutAct;
       QAction *pasteAct;
       QAction *findAndReplaceAct;
-      QAction *settingAct;
+    QAction *settingAct;
     //Magic menu
     QMenu   *magicMenu;
     QAction *toCapitalAct;
@@ -45,6 +45,7 @@ private:
     QAction *RainBowColorsAct;
     QAction *hexEditAct;
     QAction *caesarCryptoAct;
+    QAction *caesarDeCryptoAct;
    //About menu
     QMenu   *aboutMenu;
     QAction *aboutAct;
@@ -104,6 +105,7 @@ private slots:
     void rainBowColorsSlot();
     void hexEditSlot();
     void caesarCryptoSlot();
+    void caesarDeCryptoSlot();
   //about menu
     void aboutSlot();
     void helpSlot();

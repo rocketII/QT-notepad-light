@@ -15,16 +15,22 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     settingsform.cpp \
-    engine.cpp
+    engine.cpp \
+    legal.cpp
 
 HEADERS  += mainwindow.h \
     settingsform.h \
-    engine.h
+    engine.h \
+    legal.h
 
 FORMS    += mainwindow.ui \
     dialogsavebeforeclosing.ui \
-    settingsform.ui
+    settingsform.ui \
+    legal.ui
 
 DISTFILES += \
     notesReadMe.txt \
     qtföreläsning.txt
+
+RESOURCES += \
+    resourcesshitty.qrc
