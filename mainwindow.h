@@ -59,15 +59,20 @@ private:
     QPlainTextEdit *txtEditManagementIII;
     QPlainTextEdit *txtEditManagementIV;
     QPlainTextEdit *txtEditManagementV;
+    QPlainTextEdit **txtEditManagementArr;
     //menu end
-
+    QSize plaintxtEdit;
+    QSize tabChildSize;
     //tab_1 and tab_2 are in ui->
-    QWidget *tabArr= new QWidget[5];
+    QWidget **tabArr;
     QWidget *tab_3;
     QWidget *tab_4;
     QWidget *tab_5;
     //error: 'engine' does not name a type engine *engineRoar;
     engine *engineRoar;
+    QWidget *tmp;
+    QString tmp1;
+    bool usedRm;
 
     //QString currentFile[5]; used with engine save. maybe QString *currentFile = new QString[5]; max 5 tabs.
     QFormLayout *layout1;

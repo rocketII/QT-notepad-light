@@ -21,14 +21,6 @@
 ////////////////////////////////////////////////////////
 /////////  IDEAS
 /// ///////////////////////////////////////////////////
-//QT har hashning googla.
-//qt lexer lexin
-//Qstring hej = "hej";
-//hej.number()
-//(int)hej[o];
-//(int)'H'; base 16
-//execlp("c++ -flagga -flagga > compiler.txt")
-
 
 //http://doc.qt.io/qt-4.8/qdesktopservices.html#openUrl
 // QDesktopServices::openUrl(QUrl("http://bth.se", QUrl::TolerantMode));
@@ -45,8 +37,15 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    this->usedRm = false;
     ui->setupUi(this);
-    //setSelectionBehaviorOnRemove(QTabBar::SelectPreviousTab);
+    setCentralWidget(ui->tabWidget);
+    //tab button
+    QToolButton *closeButton = new QToolButton(this);
+    closeButton->setIcon(QIcon(":/images/close_tab.png"));
+    closeButton->adjustSize();
+    connect(closeButton, SIGNAL(clicked()), this, SLOT(closeCurrentTab()));
+    //tab button end
     /*
      * QPlainTextEdit monoEdit;
         QTextDocument *doc = monoEdit.document();
@@ -55,57 +54,62 @@ MainWindow::MainWindow(QWidget *parent) :
         doc->setDefaultFont(font);
         monoEdit.setPlainText
      */
+    //size for tabs and plaintextedit obj:s
+    this->plaintxtEdit = ui->tabWidget->size();
+    this->plaintxtEdit.setHeight((this->plaintxtEdit.height()-60));//23
+    this->plaintxtEdit.setWidth((this->plaintxtEdit.width()-2));//-2
+    this->tabChildSize = ui->tabWidget->size();
+    this->tabChildSize.setHeight((this->tabChildSize.height()-0));
+    this->tabChildSize.setWidth((this->tabChildSize.width()-0));
+    //////////////////////////////////////////////////////////////
+
     setWindowTitle(tr("notePadLight :: your source of swag::"));
+
+    this->txtEditManagementArr = new QPlainTextEdit*[5];
+    this->tabArr = new QWidget*[5];
     this->txtEditManagement = new QPlainTextEdit(ui->tab);
+    this->txtEditManagementArr[0] = this->txtEditManagement;
+    this->tabArr[0] = ui->tab;
+    this->tabArr[1] = ui->tab_2;
+    this->tabArr[2] = this->tab_3;
+    this->tabArr[3] = this->tab_4;
+    this->tabArr[4] = this->tab_5;
+    ui->tab->setMinimumSize(this->tabChildSize);
+    ui->tab->setMaximumSize(this->tabChildSize);
+    this->txtEditManagementArr[0]->setMaximumSize(this->plaintxtEdit);
+    this->txtEditManagementArr[0]->setMinimumSize(this->plaintxtEdit);
+
     //QTextDocument *doc = this->txtEditManagement->document();
-    QFont font;
+
     /*
      *  Lucida Console
         webdings
         Times New Roman
         Courier New
      */
+    QFont font;
     font.setFamily("Times New Roman");
     this->txtEditManagement->setFont(font);
-
-    //this->txtEditManagement->setMinimumSize(ui->tab);
     this->txtEditManagementII = new QPlainTextEdit(ui->tab_2);
-    //this->txtEditManagementII->setMinimumSize(ui->tab_2);
-    //this->tabArr[0] = ui->tab;
-    //this->nrOfTabs++;
-    //this->tabArr[1] = ui->tab_2;
-    this->nrOfTabs++;
-    //*layout1= new QForm;
-    setCentralWidget(ui->tabWidget);
-    ui->tabWidget->setTabText(ui->tabWidget->indexOf(ui->tab), tr("I changed txt"));
-    ui->tabWidget->setTabText(ui->tabWidget->indexOf(ui->tab_2), tr("no name"));
-    /*QWidget *tab_3;
-    tab_3 = new QWidget();
-    tab_3->setObjectName(QStringLiteral("tab_3"));
-    ui->tabWidget->addTab(tab_3, QString());
-    ui->tabWidget->setTabText(ui->tabWidget->indexOf(tab_3), tr("no name"));
-    QWidget *tab_4;
-    tab_4 = new QWidget();
-    tab_4->setObjectName(QStringLiteral("tab_4"));
-    ui->tabWidget->addTab(tab_4, QString());
-    QPushButton *button = new QPushButton(QApplication::translate("childwidget", "Press me"), tab_3);
-    button->show();
-    QPlainTextEdit *testMe= new QPlainTextEdit(tab_4);
-    testMe->setMinimumSize(ui->tabWidget->size());
-    testMe->show(); */
+    this->txtEditManagementArr[1] = this->txtEditManagementII;
+    this->tabArr[1]->setMinimumSize(this->tabChildSize);
+    this->tabArr[1]->setMaximumSize(this->tabChildSize);
+    this->txtEditManagementArr[1]->setMinimumSize(this->plaintxtEdit);
+    this->txtEditManagementArr[1]->setMaximumSize(this->plaintxtEdit);
+
+    this->nrOfTabs++;this->nrOfTabs++;
+
+    ui->tabWidget->setTabText(ui->tabWidget->indexOf(ui->tab), tr("myTab 0"));
+
+    qDebug() << ui->tabWidget->currentIndex();
+    qDebug() <<"current Tabindex: "<< ui->tabWidget->indexOf(ui->tab_2);
+    ui->tabWidget->setTabText(ui->tabWidget->indexOf(ui->tab_2), tr("myTab 1"));
+    qDebug() <<"current TabIndex: "<< ui->tabWidget->currentIndex();
+
     actionMagic();
-    connect(this, SIGNAL(tabCloseRequested(int)),this, SIGNAL(closeTab(int)));
     menuMagic(); //menu or action first?
-    //actionMagic();
     QString infoTxt2Screen = tr("Welcome to my shitty app!!!");
     statusBar()->showMessage(infoTxt2Screen);
-    newTabSlot();
-    newTabSlot();
-    newTabSlot();
-    //this->
-    //connect(this, SIGNAL(this->closeThemTabs.tabCloseRequested((int)),this, SIGNAL(this->closeThemTabs.clo(int)));
-    //resize(500,500);
-    //lägg tabs i en dynamisk array.
 }
 
 void MainWindow::menuMagic()
@@ -249,74 +253,113 @@ void MainWindow::actionMagic()
 //file menu slots
 void MainWindow::newTabSlot()
 {
-    if(this->nrOfTabs<6)
+    if(this->usedRm)
+    {
+        this->nrOfTabs++;
+        this->usedRm=false;
+    }
+
+
+    if(this->nrOfTabs<5)
     {
     //save new tab to some aray
 
         switch (this->nrOfTabs)
         {
-        case 3:
-            this->tab_3 = new QWidget();
-            this->tab_3->setObjectName(QStringLiteral("tab_3"));
-            ui->tabWidget->addTab(this->tab_3, QString());
-            this->txtEditManagementIII = new QPlainTextEdit(this->tab_3);
+        case 0:
+            this->tabArr[0] = new QWidget();
+            this->tabArr[0]->setObjectName(QStringLiteral("tab"));
+            ui->tabWidget->addTab(this->tabArr[0], QString("mytab 0"));
+            this->txtEditManagement = new QPlainTextEdit(this->tabArr[0]);
+            this->txtEditManagement->show();
+            this->txtEditManagementArr[0] = this->txtEditManagement;
+            this->tabArr[0]->setMinimumSize(this->tabChildSize);
+            this->tabArr[0]->setMaximumSize(this->tabChildSize);
+            this->txtEditManagementArr[0]->setMinimumSize(this->plaintxtEdit);
+            this->txtEditManagementArr[0]->setMaximumSize(this->plaintxtEdit);
+            this->tmp= ui->tabWidget->currentWidget();
+            qDebug() <<"indexOf tmp:"<< ui->tabWidget->indexOf(this->tmp);
+            qDebug() << ui->tabWidget->currentIndex();
+            qDebug() <<"index of tab1"<< ui->tabWidget->indexOf(this->tabArr[0]);
+            break;
+        case 1:
+            this->tabArr[1] = new QWidget();
+            this->tabArr[1]->setObjectName(QStringLiteral("tab_2"));
+            ui->tabWidget->addTab(this->tabArr[1], QString("myTab 1"));
+            this->txtEditManagementII = new QPlainTextEdit(this->tabArr[1]);
+            this->txtEditManagementII->show();
+            this->txtEditManagementArr[1] = this->txtEditManagementII;
+            this->tabArr[1]->setMinimumSize(this->tabChildSize);
+            this->tabArr[1]->setMaximumSize(this->tabChildSize);
+            this->txtEditManagementArr[1]->setMinimumSize(this->plaintxtEdit);
+            this->txtEditManagementArr[1]->setMaximumSize(this->plaintxtEdit);
+            this->tmp= ui->tabWidget->currentWidget();
+            qDebug() <<"indexOf tmp:"<< ui->tabWidget->indexOf(this->tmp);
+            qDebug() << ui->tabWidget->currentIndex();
+            qDebug() <<"index of tab2"<< ui->tabWidget->indexOf(this->tabArr[1]);
+            break;
+        case 2:
+            this->tabArr[2] = new QWidget();
+            this->tabArr[2]->setObjectName(QStringLiteral("tab_3"));
+            ui->tabWidget->addTab(this->tabArr[2], QString("mytab 2"));
+            this->txtEditManagementIII = new QPlainTextEdit(this->tabArr[2]);
             this->txtEditManagementIII->show();
+            this->txtEditManagementArr[2] = this->txtEditManagementIII;
+            this->tabArr[2]->setMinimumSize(this->tabChildSize);
+            this->tabArr[2]->setMaximumSize(this->tabChildSize);
+            this->txtEditManagementArr[2]->setMinimumSize(this->plaintxtEdit);
+            this->txtEditManagementArr[2]->setMaximumSize(this->plaintxtEdit);
+            this->tmp= ui->tabWidget->currentWidget();
+            qDebug() <<"indexOf tmp:"<< ui->tabWidget->indexOf(this->tmp);
+            qDebug() << ui->tabWidget->currentIndex();
+            qDebug() <<"index of tab3"<< ui->tabWidget->indexOf(this->tabArr[2]);
+            break;
+        case 3:
+            this->tabArr[3] = new QWidget();
+            this->tabArr[3]->setObjectName(QStringLiteral("tab_4"));
+            ui->tabWidget->addTab(this->tabArr[3], QString("myTab 3"));
+            this->txtEditManagementIV = new QPlainTextEdit(this->tabArr[3]);
+            this->txtEditManagementIV->show();
+            this->txtEditManagementArr[3] = this->txtEditManagementIV;
+            this->tabArr[3]->setMinimumSize(this->tabChildSize);
+            this->tabArr[3]->setMaximumSize(this->tabChildSize);
+            this->txtEditManagementArr[3]->setMinimumSize(this->plaintxtEdit);
+            this->txtEditManagementArr[3]->setMaximumSize(this->plaintxtEdit);
+            this->tmp= ui->tabWidget->currentWidget();
+            qDebug() <<"indexOf tmp:"<< ui->tabWidget->indexOf(this->tmp);
+            qDebug() << ui->tabWidget->currentIndex();
+            qDebug() <<"index of tab4"<< ui->tabWidget->indexOf(this->tabArr[3]);
             break;
         case 4:
-            this->tab_4 = new QWidget();
-            this->tab_4->setObjectName(QStringLiteral("tab_4"));
-            ui->tabWidget->addTab(this->tab_4, QString());
-            this->txtEditManagementIV = new QPlainTextEdit(this->tab_4);
-            this->txtEditManagementIV->show();
-            break;
-        case 5:
-            this->tab_5 = new QWidget();
-            this->tab_5->setObjectName(QStringLiteral("tab_5"));
-            ui->tabWidget->addTab(this->tab_5, QString());
-            this->txtEditManagementV = new QPlainTextEdit(this->tab_5);
+            this->tabArr[4] = new QWidget();
+            this->tabArr[4]->setObjectName(QStringLiteral("tab_5"));
+            ui->tabWidget->addTab(this->tabArr[4], QString("myTab 4"));
+            this->txtEditManagementV = new QPlainTextEdit(this->tabArr[4]);
             this->txtEditManagementV->show();
+            this->txtEditManagementArr[4] = this->txtEditManagementV;
+            this->tabArr[4]->setMinimumSize(this->tabChildSize);
+            this->tabArr[4]->setMaximumSize(this->tabChildSize);
+            this->txtEditManagementArr[4]->setMinimumSize(this->plaintxtEdit);
+            this->txtEditManagementArr[4]->setMaximumSize(this->plaintxtEdit);
+            qDebug() <<"tab current index: "<< ui->tabWidget->currentIndex();
+            this->tmp= ui->tabWidget->currentWidget();
+            qDebug() <<"index of tmp:"<< ui->tabWidget->indexOf(this->tmp);
+            qDebug() <<"current tab got index: "<< ui->tabWidget->currentWidget();
+            qDebug() <<"index of tab5"<< ui->tabWidget->indexOf(this->tabArr[4]);
             break;
         default:
             break;
         }
         this->nrOfTabs++;
     }
-    qDebug() << "newTabSlot: init" << nrOfTabs;
+    qDebug() << "newTabSlot: init, nrOfTabs" << nrOfTabs;
 }
 
 void MainWindow::closeTabSlot()
 {
-    /*if (QAction *action = qobject_cast<QAction*>(sender()))
-    {
-        int index = action->data().toInt();
-        emit closeTab(index);
-    }*/
-    if(this->nrOfTabs > 0)
-    {
-
-        switch (this->nrOfTabs)
-        {
-        case 1:
-            ui->tabWidget->removeTab(0);
-            break;
-        case 2:
-            ui->tabWidget->removeTab(1);
-            break;
-        case 3:
-            ui->tabWidget->removeTab(2);
-            break;
-        case 4:
-            ui->tabWidget->removeTab(3);
-            break;
-        case 5:
-            ui->tabWidget->removeTab(4);
-            break;
-        default:
-            break;
-        }
-        this->nrOfTabs--;
-    }
-    qDebug() << "closeTabSlot: init";
+    ui->tabWidget->removeTab(this->nrOfTabs--);
+    this->usedRm=true;
+    qDebug() << "closeTabSlot: init, nrOfTabs"<< this->nrOfTabs;
 }
 void MainWindow::openFileWithMagicSlot()
 {
@@ -324,14 +367,13 @@ void MainWindow::openFileWithMagicSlot()
     if(!path2YourShittyFile.isEmpty())
     {
         qDebug() << path2YourShittyFile;
-        //should I use current Tab?
-        //this->currentFile[this->nrOfTabs]= path2YourShittyFile;
-        //how should I handle parameter with 5 paths?
-        bool flag = this->engineRoar->fileLoad(path2YourShittyFile, this->txtEditManagement);
+        this->tmp= ui->tabWidget->currentWidget();
+        bool flag = this->engineRoar->fileLoad(path2YourShittyFile, this->txtEditManagementArr[ui->tabWidget->indexOf(this->tmp)]);
         if(flag)
         {
             ui->statusBar->showMessage(tr("Succes!!"));
             setWindowTitle(path2YourShittyFile);
+            ui->tabWidget->setTabText(ui->tabWidget->indexOf(this->tabArr[ui->tabWidget->indexOf(tmp)]), QFileInfo(path2YourShittyFile).fileName());
         }
         else
             ui->statusBar->showMessage(tr("Fail"));
@@ -347,7 +389,8 @@ void MainWindow::saveSlot()
     if(!pathWhereISaveYourFile2.isEmpty())
     {
         qDebug() << pathWhereISaveYourFile2;
-        bool flag = this->engineRoar->fileSave(pathWhereISaveYourFile2,this->txtEditManagement);
+        this->tmp= ui->tabWidget->currentWidget();
+        bool flag = this->engineRoar->fileSave(pathWhereISaveYourFile2,this->txtEditManagementArr[ui->tabWidget->indexOf(this->tmp)]);
         if(flag)
             statusBar()->showMessage(tr("Saved File "));
         else
@@ -378,14 +421,16 @@ void MainWindow::cutSlot()
 {
     qDebug() << "cut: init";
     //this->txtEditManagement->cut();
-    this->txtEditManagement->cut();
+    this->tmp= ui->tabWidget->currentWidget();
+    this->txtEditManagementArr[ui->tabWidget->indexOf(this->tmp)]->cut();
 }
 void MainWindow::copySlot()
 {
     qDebug() << "copy: init";
     //this->doIt.copy();
     //this->txtEditManagement->copy();
-    this->txtEditManagement->copy();
+    this->tmp= ui->tabWidget->currentWidget();
+    this->txtEditManagementArr[ui->tabWidget->indexOf(this->tmp)]->copy();
 }
 
 void MainWindow::pasteSlot()
@@ -393,7 +438,8 @@ void MainWindow::pasteSlot()
     qDebug() << "paste: init";
     //this->doIt.paste();
     //this->txtEditManagement->paste();
-     this->txtEditManagement->paste();
+    this->tmp= ui->tabWidget->currentWidget();
+    this->txtEditManagementArr[ui->tabWidget->indexOf(this->tmp)]->paste();
 }
 
 void MainWindow::findAndReplaceSlot()
@@ -415,19 +461,19 @@ void MainWindow::settingSlot()
 //magic menu slots
 void MainWindow::toCapitalSlot()
 {
-    QString tmp;
     //this->txtEditManagement->
     qDebug() << "to capital: init";
-    tmp = this->txtEditManagement->toPlainText();
-    this->txtEditManagement->setPlainText(tmp.toUpper());
-
+    this->tmp= ui->tabWidget->currentWidget();
+    this->tmp1 = this->txtEditManagementArr[ui->tabWidget->indexOf(this->tmp)]->toPlainText();
+    this->txtEditManagementArr[ui->tabWidget->indexOf(this->tmp)]->setPlainText(this->tmp1.toUpper());
 }
 void MainWindow::toLowerCaseSlot()
 {
-    QString tmp;
+
     qDebug() << "to capital: init";
-    tmp = this->txtEditManagement->toPlainText();
-    this->txtEditManagement->setPlainText(tmp.toLower());
+    this->tmp = ui->tabWidget->currentWidget();
+    this->tmp1 = this->txtEditManagementArr[ui->tabWidget->indexOf(this->tmp)]->toPlainText();
+    this->txtEditManagementArr[ui->tabWidget->indexOf(this->tmp)]->setPlainText(tmp1.toLower());
 }
 
 void MainWindow::rainBowColorsSlot()
@@ -445,13 +491,15 @@ void MainWindow::caesarCryptoSlot()
 {
     qDebug() << "Caesar encryption: init";
     int key = 4;
-    this->txtEditManagement->setPlainText(this->engineRoar->toCaesar(this->txtEditManagement->toPlainText(), key));
+    this->tmp = ui->tabWidget->currentWidget();
+    this->txtEditManagementArr[ui->tabWidget->indexOf(this->tmp)]->setPlainText(this->engineRoar->toCaesar(this->txtEditManagementArr[ui->tabWidget->indexOf(this->tmp)]->toPlainText(), key));
 }
 void MainWindow::caesarDeCryptoSlot()
 {
     qDebug() << "Caesar encryption: init";
     int key = 4;
-    this->txtEditManagement->setPlainText(this->engineRoar->toTxT(this->txtEditManagement->toPlainText(), key));
+    this->tmp = ui->tabWidget->currentWidget();
+    this->txtEditManagementArr[ui->tabWidget->indexOf(this->tmp)]->setPlainText(this->engineRoar->toTxT(this->txtEditManagementArr[ui->tabWidget->indexOf(tmp)]->toPlainText(), key));
 }
 
 //about menu slots
@@ -492,6 +540,8 @@ void MainWindow::ContactDevSlot()
 MainWindow::~MainWindow()
 {
     qDebug() << "Destructor: init";
+    delete [] this->txtEditManagementArr;
+    delete [] this->tabArr;
     QString infoTxt2Screen = tr("Closing your shitty app!!!... and you probably can't read this...");
     statusBar()->showMessage(infoTxt2Screen);
     delete ui;
