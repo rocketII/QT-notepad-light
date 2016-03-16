@@ -31,19 +31,19 @@ private:
     //Edit menu
 
       QMenu   *editMenu;
-      QAction *italicAct;
-      QAction *boldAct;
+      //QAction *italicAct;
+      //QAction *boldAct;
       QAction *copyAct;
       QAction *cutAct;
       QAction *pasteAct;
-      QAction *findAndReplaceAct;
+      //QAction *findAndReplaceAct;
     QAction *settingAct;
     //Magic menu
     QMenu   *magicMenu;
     QAction *toCapitalAct;
     QAction *toLowerCaseAct;
-    QAction *RainBowColorsAct;
-    QAction *hexEditAct;
+    //QAction *RainBowColorsAct;
+    //QAction *hexEditAct;
     QAction *caesarCryptoAct;
     QAction *caesarDeCryptoAct;
    //About menu

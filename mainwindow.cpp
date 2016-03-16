@@ -41,10 +41,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     setCentralWidget(ui->tabWidget);
     //tab button
-    QToolButton *closeButton = new QToolButton(this);
-    closeButton->setIcon(QIcon(":/images/close_tab.png"));
-    closeButton->adjustSize();
-    connect(closeButton, SIGNAL(clicked()), this, SLOT(closeCurrentTab()));
+    //QToolButton *closeButton = new QToolButton(this);
+    //closeButton->setIcon(QIcon(":/images/close_tab.png"));
+    //closeButton->adjustSize();
+    //connect(closeButton, SIGNAL(clicked()), this, SLOT(closeCurrentTab()));
     //tab button end
     /*
      * QPlainTextEdit monoEdit;
@@ -125,18 +125,18 @@ void MainWindow::menuMagic()
     //edit
 
     editMenu = menuBar()->addMenu(tr("&Edit"));
-    editMenu->addAction(boldAct);
-    editMenu->addAction(italicAct);
+    //editMenu->addAction(boldAct);
+    //editMenu->addAction(italicAct);
     editMenu->addAction(cutAct);
     editMenu->addAction(copyAct);
     editMenu->addAction(pasteAct);
-    editMenu->addAction(findAndReplaceAct);
+    //editMenu->addAction(findAndReplaceAct);
     editMenu->addAction(settingAct);
     //magic
     magicMenu = menuBar()->addMenu(tr("&magic"));
     magicMenu->addAction(toCapitalAct);
     magicMenu->addAction(toLowerCaseAct);
-    magicMenu->addAction(RainBowColorsAct);
+    //magicMenu->addAction(RainBowColorsAct);
     magicMenu->addAction(caesarCryptoAct);
     magicMenu->addAction(caesarDeCryptoAct);
     //magicMenu->addAction(hexEditAct);
@@ -181,49 +181,66 @@ void MainWindow::actionMagic()
     exitAct->setStatusTip(tr("Your are feeling tired and hungry and want to quit... nows your chance! ;)"));
     connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
   //Edit
-    boldAct = new QAction(tr("&bold"), this);
+    /*boldAct = new QAction(tr("&bold"), this);
     boldAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_B));
     boldAct->setStatusTip(tr("bold text"));
     connect(boldAct, SIGNAL(triggered()), this, SLOT(boldSlot()));
-    italicAct = new QAction(tr("&Italic"), this);
+    */
+
+    /*italicAct = new QAction(tr("&Italic"), this);
     italicAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_I));
     italicAct->setStatusTip(tr("I feel dizzy"));
     connect(italicAct, SIGNAL(triggered()), this, SLOT(italicSlot()));
+*/
 
     copyAct = new QAction(tr("&copy"), this);
     copyAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_C));
     copyAct->setStatusTip(tr("copy your marked txt;)"));
     connect(copyAct, SIGNAL(triggered()), this, SLOT(copySlot()));
+
     cutAct = new QAction(tr("&Cut"), this);
     cutAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_X));
     cutAct->setStatusTip(tr("Cut and then paste ;)"));
     connect(cutAct, SIGNAL(triggered()), this, SLOT(cutSlot()));
+
     pasteAct = new QAction(tr("&paste..."), this);
     pasteAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_V));
     pasteAct->setStatusTip(tr("make sure you alredy copied or cuted something ;)"));
     connect(pasteAct, SIGNAL(triggered()), this, SLOT(pasteSlot()));
+    /*
     findAndReplaceAct = new QAction(tr("&Find & replace"), this);
     findAndReplaceAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_F));
     findAndReplaceAct->setStatusTip(tr("replace word with another"));
     connect(findAndReplaceAct, SIGNAL(triggered()), this, SLOT(findAndReplaceSlot()));
+
+*/
     settingAct = new QAction(tr("&Settings"), this);
     settingAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_U));
     settingAct->setStatusTip(tr("make system wide changes"));
     connect(settingAct, SIGNAL(triggered()), this, SLOT(settingSlot()));
+    ///
+//worst programming language youtube.
+    ///
   //magic menu
     toCapitalAct = new QAction(tr("&Caps for everyone"), this);
+    toCapitalAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_N));
     toCapitalAct->setStatusTip(tr("Your are feeling tired and hungry and want to quit... let me change something ;)"));
     connect(toCapitalAct, SIGNAL(triggered()), this, SLOT(toCapitalSlot()));
     toLowerCaseAct= new QAction(tr("&to lower"), this);
+    toLowerCaseAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_B));
     toLowerCaseAct->setStatusTip(tr("everything to lowercase ;)"));
     connect(toLowerCaseAct, SIGNAL(triggered()), this, SLOT(toLowerCaseSlot()));
-    RainBowColorsAct= new QAction(tr("&NyanCat mode"), this);
+    /*RainBowColorsAct= new QAction(tr("&NyanCat mode"), this);
     RainBowColorsAct->setStatusTip(tr("Your are feeling tired and hungry and want to quit...but I can still entertain. :3"));
     connect(RainBowColorsAct, SIGNAL(triggered()), this, SLOT(rainBowColorsSlot()));
+*/
+
     caesarCryptoAct= new QAction(tr("&EncryptWithCaesar"), this);
+    caesarCryptoAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Y));
     caesarCryptoAct->setStatusTip(tr("It's old it's shitty and I won't be safe even if you can't read it. :("));
     connect(caesarCryptoAct, SIGNAL(triggered()), this, SLOT(caesarCryptoSlot()));
     caesarDeCryptoAct= new QAction(tr("&DecryptWithCaesar"), this);
+    caesarDeCryptoAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Comma));
     caesarDeCryptoAct->setStatusTip(tr("It's old it's shitty and I won't be safe even if you can't read it. :("));
     connect(caesarDeCryptoAct, SIGNAL(triggered()), this, SLOT(caesarDeCryptoSlot()));
   //About menu
@@ -507,12 +524,13 @@ void MainWindow::caesarDeCryptoSlot()
 void MainWindow::aboutSlot()
 {
     qDebug() << "About: init";
-
+    QDesktopServices::openUrl(QUrl("http://vangandr.synology.me/about.html", QUrl::TolerantMode));
 }
 
 void MainWindow::helpSlot()
 {
     qDebug() << "Heĺp: init";
+
 
 }
 
