@@ -39,7 +39,8 @@ DISTFILES += \
     bin+lib/Qt5Core.dll \
     bin+lib/Qt5Gui.dll \
     bin+lib/Qt5Widgets.dll \
-    bin+lib/RoderikBauhn-QT-notepadLight.exe
+    bin+lib/RoderikBauhn-QT-notepadLight.exe \
+    dv1497-qt-projekt-red.odp
 
 RESOURCES += \
     resourcesshitty.qrc

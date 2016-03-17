@@ -122,3 +122,4 @@ void TabBar::closeTab()
 ==================end tabs==========================
 
 
+draw.io klass diagram

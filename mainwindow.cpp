@@ -558,25 +558,18 @@ void MainWindow::ContactDevSlot()
 MainWindow::~MainWindow()
 {
     qDebug() << "Destructor: init";
-    delete [] this->txtEditManagementArr;
+    //delete [] this->txtEditManagementArr;
+    //delete [] this->tabArr;
+    //for (int var = 0; var < this->nrOfTabs; ++var)
+    {
+      //  delete this->tabArr[var];
+      //  delete this->txtEditManagementArr[var];
+    }
+    delete[] this->txtEditManagementArr;
     delete [] this->tabArr;
     QString infoTxt2Screen = tr("Closing your shitty app!!!... and you probably can't read this...");
     statusBar()->showMessage(infoTxt2Screen);
     delete ui;
 }
-/*
-void MainWindow::closeEvent(QCloseEvent *event)
 
-{
-    **&
-    bool engine::beforeClosing(QPlainTextEdit *obj, QString CurrentFile[], const QString shittyPath2File);
-    if (this->engineRoar->beforeClosing(ui->plainTextEdit), this->currentFile, )
-    {
-        event->accept();
-    }
-    else
-    {
-        event->ignore();
-    }
-}*/
 //draw,io class diagram.
