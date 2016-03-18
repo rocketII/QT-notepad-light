@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include "about.h"
+#include"legal.h"
 #include"engine.h"
 #include<QMainWindow>
 #include<QMenu>
@@ -21,7 +22,7 @@ public:
     ~MainWindow();
 
 private:
-
+    legal *showMe;
     //File menu
       QMenu   *fileMenu;
       QAction *openAct;

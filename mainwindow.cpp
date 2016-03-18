@@ -541,11 +541,11 @@ void MainWindow::helpSlot()
 void MainWindow::legalSlot()
 {
     qDebug() << "legalSlot(): init";
-    legal *showMe;
-    showMe = new legal;
-    showMe->setWindowTitle(tr("::notepad light::shitty legal txt::"));
-    showMe->show();
-    delete showMe;
+
+    this->showMe = new legal;
+    this->showMe->setWindowTitle(tr("::notepad light::shitty legal txt::"));
+    this->showMe->show();
+
 }
 
 void MainWindow::HomepageSlot()
@@ -570,6 +570,7 @@ MainWindow::~MainWindow()
       //  delete this->tabArr[var];
       //  delete this->txtEditManagementArr[var];
     }
+    delete this->showMe;
     delete[] this->txtEditManagementArr;
     delete [] this->tabArr;
     delete this->aboutPopUp;
