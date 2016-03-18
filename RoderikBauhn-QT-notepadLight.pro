@@ -16,17 +16,20 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     settingsform.cpp \
     engine.cpp \
-    legal.cpp
+    legal.cpp \
+    about.cpp
 
 HEADERS  += mainwindow.h \
     settingsform.h \
     engine.h \
-    legal.h
+    legal.h \
+    about.h
 
 FORMS    += mainwindow.ui \
     dialogsavebeforeclosing.ui \
     settingsform.ui \
-    legal.ui
+    legal.ui \
+    about.ui
 
 DISTFILES += \
     notesReadMe.txt \

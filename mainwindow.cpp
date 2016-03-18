@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include"engine.h"
+#include"about.h"
 #include"legal.h"
 #include "ui_mainwindow.h"
 #include "settingsform.h"
@@ -108,6 +109,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     actionMagic();
     menuMagic(); //menu or action first?
+    this->aboutPopUp = new about;
     QString infoTxt2Screen = tr("Welcome to my shitty app!!!");
     statusBar()->showMessage(infoTxt2Screen);
 }
@@ -524,7 +526,9 @@ void MainWindow::caesarDeCryptoSlot()
 void MainWindow::aboutSlot()
 {
     qDebug() << "About: init";
-    QDesktopServices::openUrl(QUrl("http://vangandr.synology.me/about.html", QUrl::TolerantMode));
+    this->aboutPopUp->setWindowTitle(QString("::about shitty pad::"));
+    this->aboutPopUp->show();
+    //QDesktopServices::openUrl(QUrl("http://vangandr.synology.me/about.html", QUrl::TolerantMode));
 }
 
 void MainWindow::helpSlot()
@@ -536,11 +540,12 @@ void MainWindow::helpSlot()
 
 void MainWindow::legalSlot()
 {
-    qDebug() << "legal: init";
+    qDebug() << "legalSlot(): init";
     legal *showMe;
     showMe = new legal;
     showMe->setWindowTitle(tr("::notepad light::shitty legal txt::"));
     showMe->show();
+    delete showMe;
 }
 
 void MainWindow::HomepageSlot()
@@ -567,6 +572,7 @@ MainWindow::~MainWindow()
     }
     delete[] this->txtEditManagementArr;
     delete [] this->tabArr;
+    delete this->aboutPopUp;
     QString infoTxt2Screen = tr("Closing your shitty app!!!... and you probably can't read this...");
     statusBar()->showMessage(infoTxt2Screen);
     delete ui;

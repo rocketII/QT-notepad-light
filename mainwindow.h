@@ -1,5 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+#include "about.h"
 #include"engine.h"
 #include<QMainWindow>
 #include<QMenu>
@@ -72,6 +73,7 @@ private:
     engine *engineRoar;
     QWidget *tmp;
     QString tmp1;
+    about *aboutPopUp;
     bool usedRm;
 
     //QString currentFile[5]; used with engine save. maybe QString *currentFile = new QString[5]; max 5 tabs.
